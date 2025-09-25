@@ -101,21 +101,47 @@ curl "http://localhost:8000/tools/calculator"
 mcp-tool-registry/
 ├── src/mcp_tool_registry/
 │   ├── __init__.py          # Package initialization
-│   ├── api.py              # FastAPI application and endpoints
+│   ├── api.py              # FastAPI application and endpoints (controllers)
 │   ├── cli.py              # Command-line interface
-│   ├── database.py         # Database configuration
-│   └── models.py           # SQLAlchemy and Pydantic models
+│   ├── database.py         # Database configuration and connection
+│   ├── models.py           # SQLAlchemy and Pydantic models
+│   └── services.py         # Business logic service layer
 ├── tests/
 │   ├── __init__.py
-│   └── test_api.py         # API tests
+│   ├── test_api.py         # API endpoint tests
+│   └── test_services.py    # Service layer tests
 ├── pyproject.toml          # Project configuration
 └── README.md
 ```
 
+### Architecture
+
+The project follows the **Service Layer Pattern** (also known as Repository Pattern) for clean separation of concerns:
+
+- **API Layer** (`api.py`): FastAPI endpoints that handle HTTP requests/responses
+- **Service Layer** (`services.py`): Business logic and data operations
+- **Data Layer** (`models.py`, `database.py`): Database models and connection management
+
+This architecture provides:
+- **Separation of Concerns**: Business logic is separated from HTTP handling
+- **Testability**: Services can be tested independently of the API
+- **Maintainability**: Changes to business logic don't affect API structure
+- **Reusability**: Services can be used by other parts of the application
+
 ### Running Tests
 
 ```bash
+# Run all tests
 uv run pytest
+
+# Run only API tests
+uv run pytest tests/test_api.py
+
+# Run only service layer tests
+uv run pytest tests/test_services.py
+
+# Run with verbose output
+uv run pytest -v
 ```
 
 ### Code Quality
