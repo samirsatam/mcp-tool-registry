@@ -23,6 +23,7 @@ dependencies = [
     "sqlalchemy>=2.0.0",
     "pydantic>=2.5.0",
     "python-multipart>=0.0.6",
+    "alembic>=1.16.5",
 ]
 
 [project.optional-dependencies]
@@ -38,6 +39,7 @@ dev = [
 
 [project.scripts]
 mcp-registry = "mcp_tool_registry.cli:main"
+mcp-cli = "mcp_tool_registry.cli:cli"
 
 [tool.black]
 line-length = 88

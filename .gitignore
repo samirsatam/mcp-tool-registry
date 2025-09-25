@@ -170,6 +170,11 @@ cython_debug/
 *.sqlite
 *.sqlite3
 
+# Migration test databases
+test_*.db
+test_*.sqlite
+test_*.sqlite3
+
 # Logs
 *.log
 logs/

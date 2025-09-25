@@ -23,8 +23,15 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 def create_tables() -> None:
-    """Create all database tables."""
-    Base.metadata.create_all(bind=engine)
+    """Create all database tables using migrations."""
+    from alembic.config import Config
+    from alembic import command
+
+    # Configure Alembic
+    alembic_cfg = Config("alembic.ini")
+
+    # Run migrations to create tables
+    command.upgrade(alembic_cfg, "head")
 
 
 def get_db() -> Generator[Session, None, None]:
